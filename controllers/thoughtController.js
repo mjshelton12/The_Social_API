@@ -70,12 +70,12 @@ module.exports = {
     });
   },
   deleteReaction(req,res) {
-    Reaction.findOneAndDelete({_id: req.params.thoughtId})
-    .then((dbThoughtData) => {
-      if(!dbThoughtData){
-        return res.status(404).json({message: 'No thought with that id!'})
+    Reaction.findOneAndDelete({_id: req.params.thoughtId.reaction.reactionId})
+    .then((dbReactionData) => {
+      if(!dbReactionData){
+        return res.status(404).json({message: 'No reaction with that id!'})
       }
-      res.json({message: 'Thought has been deleted!'})}
+      res.json({message: 'Reaction has been deleted!'})}
       )
     .catch((err) => res.status(500).json(err));
   },
