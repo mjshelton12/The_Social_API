@@ -4,7 +4,9 @@ const reactionSchema = require('./Reaction');
 const thoughtSchema = new Schema(
     {
         thoughtText: {
-            type: String
+            type: String,
+            required: true,
+            maxLength: 280,
         },
         createdAt: {
             type: Date,
@@ -12,6 +14,7 @@ const thoughtSchema = new Schema(
         },
         username: {
             type: String,
+            required: true,
         },
         reactions: [reactionSchema],
     },

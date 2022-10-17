@@ -13,7 +13,7 @@ module.exports = {
       .populate('friends')
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No user with that ID' })
+          ? res.status(404).json({ message: 'No user with that id!' })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
@@ -27,7 +27,7 @@ module.exports = {
     User.findOneAndUpdate({_id: req.params.userId}, {$set: req.body}, {new: true})
     .then((dbUserData) => {
       if(!dbUserData){
-        return res.status(404).json({message: 'no user with that id!'})
+        return res.status(404).json({message: 'No user with that id!'})
       }
       res.json(dbUserData)}
       )
@@ -37,9 +37,9 @@ module.exports = {
     User.findOneAndDelete({_id: req.params.userId})
     .then((dbUserData) => {
       if(!dbUserData){
-        return res.status(404).json({message: 'no user with that id!'})
+        return res.status(404).json({message: 'No user with that id!'})
       }
-      res.json({message: 'user has been deleted!'})}
+      res.json({message: 'User has been deleted!'})}
       )
     .catch((err) => res.status(500).json(err));
   },
@@ -50,7 +50,7 @@ module.exports = {
       {new: true})
     .then((dbUserData) => {
       if(!dbUserData){
-        return res.status(404).json({message: 'no user with that id!'})
+        return res.status(404).json({message: 'No user with that id!'})
       }
       res.json(dbUserData)}
       )
@@ -63,7 +63,7 @@ module.exports = {
       {new: true})
     .then((dbUserData) => {
       if(!dbUserData){
-        return res.status(404).json({message: 'no user with that id!'})
+        return res.status(404).json({message: 'No user with that id!'})
       }
       res.json(dbUserData)}
       )
