@@ -34,7 +34,7 @@ module.exports = {
     });
   },
   updateThought(req,res) {
-    this.createThought.findOneAndUpdate({_id: req.params.thoughtId}, {$set: req.body}, {new: true})
+    Thought.findOneAndUpdate({_id: req.params.thoughtId}, {$set: req.body}, {new: true})
     .then((dbThoughtData) => {
       if(!dbThoughtData){
         return res.status(404).json({message: 'No thought with that id!'})
