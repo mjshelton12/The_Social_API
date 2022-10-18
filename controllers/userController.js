@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Thought = require('../models/Thought');
 
 module.exports = {
   getUsers(req, res) {
@@ -36,6 +37,8 @@ module.exports = {
   deleteUser(req,res) {
     User.findOneAndDelete({_id: req.params.userId})
     .then((dbUserData) => {
+      Thought.deleteMany({username : dbUserData.username})
+      console.log(dbUserData)
       if(!dbUserData){
         return res.status(404).json({message: 'No user with that id!'})
       }

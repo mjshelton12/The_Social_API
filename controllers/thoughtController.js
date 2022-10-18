@@ -64,11 +64,14 @@ module.exports = {
     .catch((err) => res.status(500).json(err));
   },
   deleteReaction(req,res) {
-    Thought.findOneAndUpdate({_id: req.params.thoughtId}, {$pull: {reactions : {reactionId : req.params.reactionId} } }, {new: true})
+    Thought.findOneAndUpdate(
+      {_id: req.params.thoughtId},
+      {$pull: {reactions : {reactionId : req.params.reactionId} } },
+      {new: true})
     .then((dbThoughtData) => {
       if(!dbThoughtData){
         return res.status(404).json({message: 'No thought with that id!'})
-      }ç
+      }
       res.json(dbThoughtData)}
       )
     .catch((err) => res.status(500).json(err));
