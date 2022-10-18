@@ -2,6 +2,7 @@ const { Schema, Types } = require("mongoose");
 
 const reactionSchema = new Schema(
   {
+    _id: false,
     reactionId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
@@ -22,12 +23,12 @@ const reactionSchema = new Schema(
         if (date) return date.toISOString().split("T") [0];
       },
     },
+    
   },
   {
     toJSON: {
       virtuals: true, getters: true
     },
-    id: false,
   }
 );
 
