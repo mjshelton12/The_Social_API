@@ -7,7 +7,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   getSingleThought(req, res) {
-    Thought.findOne({ _id: req.params.userId })
+    Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
       .populate('reactions')
       .then((thought) =>
@@ -20,7 +20,7 @@ module.exports = {
   createThought(req, res) {
     Thought.create(req.body).then((dbThoughtData) => {
       return User.findOneAndUpdate(
-        { _id: req.body.userId },
+        { username: req.body.username },
         {$push: {thoughts: dbThoughtData._id}},
         { new: true }
       )
