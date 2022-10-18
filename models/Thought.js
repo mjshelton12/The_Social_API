@@ -10,17 +10,20 @@ const thoughtSchema = new Schema(
         },
         createdAt: {
             type: Date,
-            default: Date.now
+            default: Date.now,
+            get: (date) => {
+              if (date) return date.toISOString().split("T") [0];
+            },
         },
         username: {
             type: String,
-            required: true,
+                        required: true,
         },
         reactions: [reactionSchema],
     },
     {
         toJSON: {
-          virtuals: true,
+          virtuals: true, getters: true,
         },
         id: false,
     }
