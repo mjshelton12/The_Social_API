@@ -54,28 +54,22 @@ module.exports = {
     .catch((err) => res.status(500).json(err));
   },
   createReaction(req, res) {
-    Reaction.create(req.body).then((dbReactionData) => {
-      return thought.findOneAndUpdate(
-        { _id: req.body.thoughtId },
-        {$push: {reactions: dbReactionData._id}},
-        { new: true }
+    Thought.findOneAndUpdate({_id: req.params.thoughtId}, {$push: {reactions: req.body} }, {new: true})
+    .then((dbThoughtData) => {
+      if(!dbThoughtData){
+        return res.status(404).json({message: 'No thought with that id!'})
+      }
+      res.json(dbThoughtData)}
       )
-        .then((dbReactionData) => {
-          if (!dbReactionData) {
-            return res.status(404).json({ message: "Thought created but no user with that id found!" });
-          }
-          res.json(dbReactionData);
-        })
-        .catch((err) => res.status(500).json(err));
-    });
+    .catch((err) => res.status(500).json(err));
   },
   deleteReaction(req,res) {
-    Reaction.findOneAndDelete({_id: req.params.thoughtId.reaction.reactionId})
-    .then((dbReactionData) => {
-      if(!dbReactionData){
-        return res.status(404).json({message: 'No reaction with that id!'})
-      }
-      res.json({message: 'Reaction has been deleted!'})}
+    Thought.findOneAndUpdate({_id: req.params.thoughtId}, {$pull: {reactions : {reactionId : req.params.reactionId} } }, {new: true})
+    .then((dbThoughtData) => {
+      if(!dbThoughtData){
+        return res.status(404).json({message: 'No thought with that id!'})
+      }ç
+      res.json(dbThoughtData)}
       )
     .catch((err) => res.status(500).json(err));
   },
